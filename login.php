@@ -1,6 +1,5 @@
 <?php
     session_start();
-    $_SESSION['isLoggedIn'] = false;
     if($_POST && $_POST['login'] === "login"){
         $_SESSION['isLoggedIn'] = true;
     }

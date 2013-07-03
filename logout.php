@@ -1,6 +1,5 @@
 <?php
     session_start();
-    $_SESSION['isLoggedIn'] = true;
     if($_POST && $_POST['logout'] === "logout"){
         session_destroy();
         session_start();
