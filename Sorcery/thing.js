@@ -8,6 +8,7 @@ $(document).ready( function () {
     imageHeight: 0,
     canvasWidth: 0,
     canvasHeight: 0,
+    numFrames: 0,
     scale: 1,
     initialize: function () {
       var assetsToLoader = ["frame.json"],
@@ -27,13 +28,11 @@ $(document).ready( function () {
 
       // Assets loaded
 
-      self.scale = self.canvasWidth/self.imageWidth;
-
       self.scaleAssets();
 
-      var numFrames = 5;
-
       window.onresize = self.resizeCanvas;
+
+      requestAnimFrame(animate);
 
       document.body.appendChild(renderer.view);
 
@@ -42,8 +41,10 @@ $(document).ready( function () {
         var frames = [];
         var frame;
 
-        for (var x = 0; x < numFrames; x++) {
-          frame = PIXI.Texture.fromFrame("frame"+(x+1)+".png");
+        self.numFrames = 5;
+
+        for (var x = 1; x <= self.numFrames; x++) {
+          frame = PIXI.Texture.fromFrame("frame" + x + ".png");
           frames.push(frame);
         }
 
@@ -60,7 +61,6 @@ $(document).ready( function () {
 
         createPointer(self.canvasWidth * .1, self.canvasHeight /2);
         //window.setInterval(animate, 1000);
-        requestAnimFrame(animate);
       }
 
       function animate () {
@@ -144,9 +144,6 @@ $(document).ready( function () {
         // add it to the stage
         self.stage.addChildAt(pointer, 2);
       }
-
-
-
     },
     scaleAssets: function () {
       // Just sets all scalable PIXI items to the scale
@@ -175,6 +172,10 @@ $(document).ready( function () {
     resizeCanvas: function () {
       this.canvasWidth = $(window).innerWidth();
       this.canvasHeight = $(window).innerHeight();
+      console.log(this.canvasWidth);
+
+
+      this.scale = this.canvasWidth/this.imageWidth;
     }
   }
 
